@@ -26,7 +26,7 @@ const projects = [
     type: ['Machine Learning Project'],
     description: 'This project dives into the world of data science to predict house prices. By analyzing factors like square footage, number of bedrooms, and location, we\'ve built a machine learning model that can accurately estimate property values.',
     technologies: ['EDA', 'Machine Learning Models', 'Data Preprocessing', 'Feature Engineering', 'Scikit-Learn', 'Pandas'],
-    source: 'https://github.com/rogerqiu7/Python-Projects/blob/main/CarBrandTextComparison/CarBrandTextComparison.ipynb',
+    source: 'https://github.com/miaYmia/ML_Projects/blob/main/house-price-prediction/House_Price_Prediction.ipynb',
   },
   {
     img: {
