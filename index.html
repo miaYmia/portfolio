@@ -1,0 +1,153 @@
+<html lang="en">
+<head>
+  <!-- Meta information for compatibility and viewport settings -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tab Icon -->
+  <link rel="icon" href="img/favicon.ico" type="image/png" />
+
+  <!-- Tab Name -->
+  <title>Mia Yuan Portfolio</title>
+  
+  <!-- Link to Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  
+  <!-- Link to Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Link to external stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+  
+  <!-- Links to external JavaScript files with the defer attribute -->
+  <script src="projects.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+  <nav id="navbar" class="flex bg-white">
+
+    <div id="nav-icon" class="nav_icon__container">
+      <img id="icon" alt="icon" src="img/favicon-32.png">
+    </div>
+
+    <ul id="nav-menu-links" class="nav_menu__container">
+      <li><a href="#about">About</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+    </ul>
+  </nav>
+
+  <!-- About section with profile details -->
+  <section id="about" class="about bg-white">
+
+    <div class="about-container">
+
+      <!-- Adding the profile image -->
+      <img src="img/profile.jpg" alt="Profile picture of Roger Qiu" class="profile-pic"/>
+
+      <h1>Hi, I'm Mia Yuan! Welcome to my webpage! </h1>
+      <!-- Introduction and bio -->
+      <p>
+        I'm a product manager at <a href="https://www.vanguard.com/" target="_blank">Vanguard</a>
+         I enjoy exploring new technologies, building machine learning projects, and I am passionate about using data and technology to drive business impact. 
+         I'm currently pursuing my Master of Computer and Information Technology at  <a href="https://www.upenn.edu/" target="_blank"> 
+         University of Pennsylvania</a>.
+        <br />
+        <br />
+        I love meeting new people, let's connect!
+      </p>
+
+      <!-- Social media links and Resume button -->
+      <div class="socials__container">
+        <!-- <h6>LET'S CONNECT</h6> -->
+        <ul class="icons_social__container flex">
+
+          <li class="social_link"><a aria-label="Linkedin" target="_blank" href="https://www.linkedin.com/in/mia-yuan/"><i class="fa-brands fa-linkedin-in"></i></a></li>
+
+          <li class="social_link"><a aria-label="Github" target="_blank" href="https://github.com/miaYmia"><i class="fa-brands fa-github"></i></a></li>
+          
+          <a href="https://github.com/rogerqiu7/web-portfolio/blob/main/resume.pdf" target="_blank">
+            <button class="btn-primary btn-outlined">Resume</button>
+          </a>
+
+        </ul>
+      </div>
+    </div>
+
+    <!-- Skills, Models, and Languages lists -->
+    <div class="stack-container">
+
+      <div class="row">
+        <div class="column">
+          <h2>Education</h2>
+          <ul class="about-coding_langs">
+            <li>Master of Science - Master of Computer and Information Technology, University of Pennsylvania</li>
+            <li>Bachelor of Arts - Global Leadership, Arizona State University</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <h2>Skills</h2>
+          <ul class="about-coding_langs">
+            <li>Product Management</li>
+            <li>Machine Learning</li>
+            <li>Data Analytics</li>
+            <li>Java</li>
+            <li>Python</li>
+            <li>SQL</li>
+            <li>JavaScript</li>
+            
+          </ul>
+        </div>
+
+        <div class="column">
+          <h2>Machine Learning</h2>
+          <!-- Models list -->
+          <ul class="about-coding_langs">
+            <li>Exploratory Data Analytics Visualizations</li>
+            <li>Date Visualizations</li>
+            <li>Data Pre-processing</li> 
+            <li>Feature selection methods</li>
+            <li>Machine Learning Models</li>
+            <li>Performance Metrics</li>
+            <li>Natural Language Processing</li>
+          </ul>
+        </div>
+
+        <div class="column">
+          <h2>Experience</h2>
+          <ul class="about-coding_langs">
+            <li>Product Manager - Vanguard, May 2023 to Present</li>
+            <li>Product Manager - Cigna, Apr 2021 to May 2023</li>
+            <li>Product Analyst - Cigna, Aug 2018 to Apr 2021</li>
+            <li>Python & Java Teacher - LaunchCode, 2020</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Portfolio section -->
+  <section id="portfolio" class="projects"></section>
+
+  <!-- Footer with GitHub link and dummy text -->
+  <footer class="flex bg-white">
+
+    <a href="https://github.com/rogerqiu7/Web-Portfolio" target="_blank" class="title-text">GitHub</a>
+
+    <!-- <a href="https://github.com/rogerqiu7?tab=repositories" target="_blank" class="title-text">More Projects</a> -->
+
+    <!-- <a href="https://github.com/rogerqiu7/Web-Portfolio/blob/main/LICENSE.txt" target="_blank" class="title-text">Terms & License</a> -->
+
+    <div class="footer__container">
+      <p class="dummy-text">© 2024 Mia Yuan</p>
+    </div>
+
+  </footer>
+
+</body>
+</html>

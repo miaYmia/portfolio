@@ -1,0 +1,416 @@
+/* General Styles */
+
+/* Define color variables */
+:root {
+  --bg-purple: #1e31ff;
+  --bg-dark-blue: #172b4d;
+  --bg-lavender: #ffebfa;
+  --bg-slate-grey: #435a80;
+  --text-dark-blue: #27344a;
+  --font-poppins: "Poppins", sans-serif;
+}
+
+/* Apply a consistent box-sizing to all elements */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set default styles for the body */
+body {
+  background-color: rgb(229, 226, 226);
+  overflow-x: hidden;
+  font-family: var(--font-poppins);
+}
+
+/* Headings Styles */
+h1 {
+  color: var(--text-dark-blue);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 52px;
+}
+
+h3 {
+  color: var(--bg-dark-blue);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 44px;
+}
+
+h6 {
+  color: var(--bg-purple);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* Paragraph Styles */
+p {
+  padding: 1rem 0;
+  color: var(--text-dark-blue);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* Styles for links */
+a {
+  text-decoration: none;
+}
+
+/* Button Styles */
+button {
+  all: unset;
+  user-select: none;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+/* Hover styles for icons inside buttons on hover */
+button:hover > .live_demo_icon,
+button:hover > .source_code_icon {
+  color: white;
+}
+
+.btn-primary {
+  color: #396df2;
+}
+
+.btn-contained {
+  background-color: #fff;
+}
+
+.btn-contained:hover {
+  color: #fff;
+  background-color: #2230d2;
+  box-shadow: 0 8px 16px rgba(64, 83, 252, 0.24);
+}
+
+.btn-contained:active {
+  color: #2230d2;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(64, 83, 252, 0.24);
+}
+
+.btn-outlined {
+  border: 1px solid var(--bg-purple);
+}
+
+.btn-outlined:hover {
+  background-color: var(--bg-purple);
+  color: white;
+}
+
+.btn-outlined:active {
+  background-color: #2230d2;
+  color: #fff;
+}
+
+/* ##############  Navbar  ################  */
+
+#navbar {
+  height: 30px; /* you can adjust this value if needed */
+  padding: 1rem;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  background-color: white;
+  border-bottom: 1px solid black; /* Adds a thin black border to the bottom of the navbar */
+}
+
+#navbar a,
+#navbar .nav_icon__container,
+#navbar .nav_menu__container {
+  margin-right: 150px; /* adjust the value as needed */
+  margin-left: 10rem;  /* adjust the value as needed */
+}
+
+/* Additional styles for navbar text, icons, etc., if needed */
+.nav_menu__container li {
+  display: inline; /* Makes the list items horizontal */
+  margin-right: 20px; /* Adjust spacing between list items */
+}
+
+.nav_menu__container a {
+  text-decoration: none; /* Removes underline from links */
+  color: black; /* Adjust link color if needed */
+}
+
+/* ##############  About Section  ################  */
+/* About Section Layout */
+.about {
+  display: flex;
+  padding: 4rem 3rem 1rem 3rem; /* Increased the top padding and reduced the bottom padding */
+}
+
+.about-container {
+  display: flex;
+  width: 60%;
+  flex-direction: column;
+  padding-right: 2rem; /* Add spacing between content and stack container */
+  padding-left: 5rem;
+}
+
+.profile-pic {
+  width: 400px; /* Adjust the width as needed */
+  height: 400px; /* Set the height equal to width for a perfect circle */
+  border-radius: 50%; /* Makes the shape round */
+  object-fit: cover; /* Ensures the image fits within the circle without distortion */
+  image-rendering: auto; /* Ensures smoother rendering */
+  object-fit: cover;
+}
+
+
+/* Styles for social icons container */
+.socials__container {
+  display: flex;
+  width: 50%;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 0.5rem 0 1.5rem 0;
+  gap: 0.5rem;
+}
+
+.icons_social__container {
+  justify-content: flex-start;
+}
+
+.socials__container > .icons_social__container > .social_link {
+  list-style: none;
+  margin-right: 1rem;
+}
+
+/* Styles for Skills container */
+
+.stack-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Add spacing between rows */
+}
+
+/* Style for each row */
+.row {
+  display: flex;
+  gap: 2rem; /* Add spacing between columns */
+}
+
+.about-coding_langs > li {
+  list-style: none;
+  color: #000000;
+  font-size: 12.5px;
+  background-color: var(--bg-lavender);
+  border-radius: 8px;
+  padding: 8px 16px; /* Keeps the original padding */
+  margin: 8px 0;
+  box-sizing: border-box; /* Makes sure padding doesn't affect the width */
+}
+
+/* Styles for Font Awesome brand icons */
+.fa-brands {
+  font-size: 40px;
+  background-color: white;
+  color: var(--bg-slate-grey);
+  cursor: pointer;
+  transition: transform 0.1s linear;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.gap {
+  gap: 12px;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+/* ##############  Projects Section  ################  */
+
+
+.projects {
+  display: grid;
+  place-items: center;
+  grid-template-columns: auto;
+  gap: 2rem;
+  margin-bottom: 2rem; /* Increased the space at the bottom of the projects section */
+}
+
+/* Styles for project coding languages */
+.project_coding_langs > li {
+  list-style: none;
+  color: #000000;
+  font-size: 12.5px;
+  background-color: var(--bg-lavender);
+  border-radius: 8px;
+  padding: 4px 12px;
+}
+
+.project_coding_langs {
+  flex-wrap: wrap;
+  padding: 1rem 0;
+  gap: 0.75rem;
+}
+
+.project_details {
+  padding: 0.5rem 0;
+}
+
+.project_details > li {
+  margin-right: 1.5rem;
+  color: #7a869a;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.project_details > .project_card:first-child {
+  list-style: none;
+  color: var(--text-dark-blue);
+}
+
+/* Projects - Card */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 10px;
+  border: 1px solid #dfe1e6;
+  border-radius: 5px;
+}
+
+.card article {
+  display: flex;
+  flex-direction: column;
+  justify-self: flex-start;
+  flex: 1;
+}
+
+.project__description {
+  font-size: 16px;
+}
+
+.card .project_details > .project_detail:first-child {
+  list-style: none;
+  color: var(--text-dark-blue);
+}
+
+.desktop-bg {
+  max-width: 544px;
+  min-width: 275px;
+  width: 100%;
+  height: 350px;
+  flex: 1;
+  border-radius: 8px;
+}
+
+.card p {
+  padding: 0;
+}
+
+/* Footer Section */
+footer {
+  height: 30px;
+  padding: 1rem;
+  width: 100%;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  border-top: 1px solid black; /* Adds a thin black border to the top of the footer */
+}
+
+footer a,
+footer .footer__container {
+  margin-right: 150px; /* adjust the value as needed */
+  margin-left: 150px;  /* adjust the value as needed */
+}
+
+/* Other Media Section */
+
+@media screen and (min-width: 821px) {
+
+  /* Projects Section */
+
+  .projects {
+    padding: 2rem 2rem;
+  }
+
+  .project_description__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .card {
+    width: 90%;
+    height: max-content;
+    min-width: 327px;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+
+  .card:nth-child(2n + 1) {
+    flex-direction: row;
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  
+  /* Navbar adjustments for smaller screens */
+  #navbar a,
+  #navbar .nav_icon__container,
+  #navbar .nav_menu__container {
+    margin-right: 10px; /* Reduce margin for mobile */
+    margin-left: 10px;  /* Reduce margin for mobile */
+  }
+
+  /* Adjustments for the About section */
+  .about {
+    flex-direction: column; /* Stack the items vertically */
+    padding: 2rem; /* Reduce padding for mobile */
+  }
+
+  .about-container {
+    width: 100%; /* Use the full available width */
+    padding-right: 1rem; /* Adjust padding as needed */
+    padding-left: 1rem;
+  }
+  
+  .profile-pic {
+    width: 200px; /* Reduce image size for mobile */
+  }
+
+  /* Projects Section adjustments for smaller screens */
+  .card {
+    flex-direction: column; /* Stack the items vertically */
+    width: 100%;
+  }
+
+  /* Footer adjustments for smaller screens */
+  footer a,
+  footer .footer__container {
+    margin-right: 10px; /* Reduce margin for mobile */
+    margin-left: 10px;  /* Reduce margin for mobile */
+  }
+}
