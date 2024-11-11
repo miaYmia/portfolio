@@ -11,7 +11,7 @@ const projects = [
       src: './img/titanic.png',
       alt: 'titanic',
     },
-    title: 'Can you survived the Titanic?',
+    title: 'Would you have survived the Titanic?',
     type: ['Machine Learning Project'],
     description: 'Can you predict who would survive the Titanic disaster? This project uses machine learning to analyze factors like age, class, and family relationships to predict survival, using techniques like data preprocessing and model evaluation to achieve accurate results.',
     technologies: ['EDA', 'Data Pre-processing', 'Data Visualization', 'Logistic Regression','Decision Tree'],
