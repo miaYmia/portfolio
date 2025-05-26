@@ -8,7 +8,7 @@ const projectsSection = document.getElementById('portfolio');
 const projects = [
   {
     img: {
-      src: './img/titanic.png',
+      src: './img/trading-sim.png',
       alt: 'titanic',
     },
     title: 'Trading Strategy Simulator',
