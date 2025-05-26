@@ -11,6 +11,17 @@ const projects = [
       src: './img/titanic.png',
       alt: 'titanic',
     },
+    title: 'Trading Strategy Simulator',
+    type: ['Python & Finance'],
+    description: 'Interactive trading simulator that visualizes buy/sell signals using moving average crossover logic on real-time stock data. A fun project that combines data, finance and product thinking.',
+    technologies: ['Streamlit', 'Plotly', 'SQLite', 'Alpha Vantage API', 'Pandas', 'Trading Strategy'],
+    source: 'https://github.com/miaYmia/trading-strategy-simulator',
+  },
+  {
+    img: {
+      src: './img/titanic.png',
+      alt: 'titanic',
+    },
     title: 'Would you have survived the Titanic?',
     type: ['Machine Learning Project'],
     description: 'Can you predict who would survive the Titanic disaster? This project uses machine learning to analyze factors like age, class, and family relationships to predict survival, using techniques like data preprocessing and model evaluation to achieve accurate results.',
