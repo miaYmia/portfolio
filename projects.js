@@ -9,7 +9,7 @@ const projects = [
   {
     img: {
       src: './img/trading-sim.png',
-      alt: 'titanic',
+      alt: 'trading sim',
     },
     title: 'Trading Strategy Simulator',
     type: ['Python & Finance'],
