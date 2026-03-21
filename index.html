@@ -1,150 +1,1093 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Meta information for compatibility and viewport settings -->
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mia Yuan · TPM III · AI/ML · Mobile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300;1,9..144,700&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --ink:       #0d0d0d;
+      --ink-soft:  #3a3028;
+      --ink-muted: #8a7a6e;
+      --paper:     #faf7f3;
+      --paper-mid: #f0ebe2;
+      --ember:     #c94f1a;
+      --ember-dim: #e07040;
+      --border:    rgba(13,13,13,0.09);
+      --font-head: 'Fraunces', serif;
+      --font-body: 'Sora', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 15px;
+      overflow-x: hidden;
+    }
 
-  <!-- Tab Icon -->
-  <link rel="icon" href="img/favicon.ico" type="image/png" />
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 900;
+      display: flex; justify-content: center; align-items: center;
+      height: 60px;
+      background: rgba(250,247,243,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      width: 100%; max-width: 1200px;
+      padding: 0 5rem;
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--ink); letter-spacing: -0.01em;
+    }
+    .nav-logo i { font-style: italic; color: var(--ember); font-weight: 300; }
+    nav ul { list-style:none; display:flex; gap:2.5rem; align-items:center; }
+    nav a {
+      text-decoration: none; font-size: 0.78rem; font-weight: 500;
+      color: var(--ink-muted); letter-spacing: 0.07em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--ember); }
+    .nav-pill {
+      background: var(--ink) !important; color: var(--paper) !important;
+      padding: 0.45rem 1.2rem; border-radius: 100px;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-pill:hover { background: var(--ember) !important; transform: translateY(-1px); }
 
-  <!-- Tab Name -->
-  <title>Mia Yuan Portfolio</title>
-  
-  <!-- Link to Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
-  
-  <!-- Link to Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
-  <!-- Link to external stylesheet -->
-  <link rel="stylesheet" href="styles.css" />
-  
-  <!-- Links to external JavaScript files with the defer attribute -->
-  <script src="projects.js" type="text/javascript" defer></script>
+    /* ─── HERO ─── */
+    #hero {
+      min-height: auto;
+      padding: 8rem 5rem 5rem;  /* top right/left bottom */
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 400px;
+      gap: 5rem; align-items: center;
+      width: 100%; max-width: 1200px;
+      padding: 4rem 0;
+    }
+
+    /* ═══════════════════════════════
+       ANIMATION SYSTEM
+    ═══════════════════════════════ */
+
+    /* 1. Fade up — default scroll reveal */
+    .r { opacity:0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .r.on { opacity:1; transform:translateY(0); }
+
+    /* 2. Hero entrance — staggered fade-in from below */
+    .hero-enter {
+      opacity: 0;
+      animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-enter.d1 { animation-delay: 0.1s; }
+    .hero-enter.d2 { animation-delay: 0.25s; }
+    .hero-enter.d3 { animation-delay: 0.4s; }
+    .hero-enter.d4 { animation-delay: 0.55s; }
+    .hero-enter.d5 { animation-delay: 0.7s; }
+    .hero-enter.d6 { animation-delay: 0.85s; }
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 3. Sketch — slides in from the right */
+    .sketch-enter {
+      opacity: 0;
+      animation: sketchSlide 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+    @keyframes sketchSlide {
+      from { opacity: 0; transform: translateX(40px) scale(0.97); }
+      to   { opacity: 1; transform: translateX(0) scale(1); }
+    }
+
+    /* 4. Stat boxes — pop in with spring */
+    .stat-pop {
+      opacity: 0;
+      animation: statPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    .stat-pop.d1 { animation-delay: 0.9s; }
+    .stat-pop.d2 { animation-delay: 1.05s; }
+    @keyframes statPop {
+      from { opacity: 0; transform: scale(0.85) translateY(10px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* 5. Kicker line — draw in from left */
+    .kicker-draw::before {
+      content: ''; display: block; width: 0; height: 1px;
+      background: var(--ember);
+      animation: drawLine 0.6s ease 0.05s forwards;
+    }
+    @keyframes drawLine {
+      from { width: 0; }
+      to   { width: 28px; }
+    }
+
+    /* 6. Stats bar numbers — count up handled in JS */
+    .sbar-n { transition: all 0.3s; }
+
+    /* 7. Section eyebrow line draw */
+    .eyebrow-draw::before {
+      width: 0 !important;
+      animation: drawEyebrow 0.5s ease forwards;
+    }
+    .eyebrow-draw.on::before { animation: drawEyebrow 0.5s ease forwards; }
+    @keyframes drawEyebrow {
+      from { width: 0; }
+      to   { width: 18px; }
+    }
+
+    /* 8. ML cards — reveal with stagger + slight tilt */
+    .mlcard-reveal {
+      opacity: 0;
+      transform: translateY(32px) rotate(0.5deg);
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mlcard-reveal.on {
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+
+    /* 9. Project cards — alternating slide directions */
+    .pcard-left  { opacity:0; transform: translateX(-28px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .pcard-right { opacity:0; transform: translateX(28px);  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .pcard-left.on, .pcard-right.on { opacity:1; transform: translateX(0); }
+
+    /* 10. Stat boxes in stats bar — scale up */
+    .sbar-reveal { opacity:0; transform: scale(0.92); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.4,0.64,1); }
+    .sbar-reveal.on { opacity:1; transform: scale(1); }
+
+    /* 11. Blog cards — fan in */
+    .bcard-fan {
+      opacity: 0;
+      transform: translateY(20px) rotate(-1deg);
+      transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.16,1,0.3,1);
+    }
+    .bcard-fan.on { opacity:1; transform: translateY(0) rotate(0deg); }
+
+    /* 12. Nav link underline sweep */
+    nav a:not(.nav-pill) {
+      position: relative;
+    }
+    nav a:not(.nav-pill)::after {
+      content: '';
+      position: absolute; bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--ember);
+      transition: width 0.25s ease;
+    }
+    nav a:not(.nav-pill):hover::after { width: 100%; }
+
+    /* 13. Hover lift on about cards */
+    .acard { transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease; }
+
+    /* 14. Pulsing dot on kicker */
+    .kicker-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--ember); border-radius: 50%;
+      margin-right: 0.5rem;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .hero-kicker {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      color: var(--ember); letter-spacing: 0.12em;
+      margin-bottom: 1.6rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-kicker::before {
+      content: ''; display: block; width: 28px; height: 1px; background: var(--ember);
+    }
+
+    h1.hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(3.2rem, 4.5vw, 5rem);
+      font-weight: 300; line-height: 1.08;
+      color: var(--ink); letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+    h1.hero-title em { font-style: italic; color: var(--ember); }
+
+    .hero-tagline {
+      font-family: var(--font-head);
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      font-weight: 300; font-style: italic;
+      color: var(--ember); letter-spacing: -0.01em;
+      margin-bottom: 1.75rem; margin-top: -0.5rem;
+    }
+
+    .hero-bio {
+      font-size: 1rem; line-height: 1.85;
+      color: var(--ink-soft); max-width: 500px;
+      margin-bottom: 2.5rem; font-weight: 300;
+    }
+    .hero-bio strong { font-weight: 600; color: var(--ink); }
+
+    .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2.5rem; }
+
+    .btn-solid {
+      background: var(--ink); color: var(--paper);
+      padding: 0.8rem 2rem; border-radius: 4px;
+      font-size: 0.82rem; font-weight: 600;
+      text-decoration:none; letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.15s;
+      display:inline-block;
+    }
+    .btn-solid:hover { background: var(--ember); transform: translateY(-2px); }
+
+    .btn-line {
+      border: 1.5px solid var(--ink);
+      color: var(--ink); padding: 0.8rem 2rem; border-radius: 4px;
+      font-size: 0.82rem; font-weight: 600;
+      text-decoration:none; letter-spacing: 0.04em;
+      transition: all 0.2s; display:inline-block;
+    }
+    .btn-line:hover { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
+
+    .hero-links { display:flex; align-items:center; gap:0.8rem; }
+    .hero-links span {
+      font-size: 0.7rem; color: var(--ink-muted);
+      text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .icon-link {
+      width: 36px; height: 36px; border: 1px solid var(--border);
+      border-radius: 50%; display:flex; align-items:center; justify-content:center;
+      color: var(--ink-soft); text-decoration:none; font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .icon-link:hover { border-color: var(--ember); color: var(--ember); transform: translateY(-2px); }
+
+    /* Hero right — abstract visual */
+    .hero-visual {
+      display: flex; flex-direction: column; gap: 1rem;
+      padding-bottom: 2rem;
+    }
+
+    .hero-abstract {
+      width: 100%; aspect-ratio: 3/4; border-radius: 12px;
+      background: var(--paper);
+      overflow: hidden; position: relative;
+    }
+    .hero-abstract img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+      -webkit-mask-image: radial-gradient(ellipse 90% 85% at 50% 35%, black 25%, rgba(0,0,0,0.8) 50%, transparent 78%);
+      mask-image: radial-gradient(ellipse 90% 85% at 50% 35%, black 25%, rgba(0,0,0,0.8) 50%, transparent 78%);
+    }
+
+    .hero-stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .hero-stat-box {
+      background: white; border: 1px solid rgba(201,79,26,0.12);
+      border-radius: 10px; padding: 1.1rem 1.25rem;
+    }
+    .hero-stat-box .n {
+      font-family: var(--font-head); font-size: 1.9rem;
+      font-weight: 700; color: var(--ink); line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .hero-stat-box .n span { color: var(--ember); }
+    .hero-stat-box .l {
+      font-size: 0.68rem; color: var(--ink-muted);
+      text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500;
+    }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      background: var(--ink);
+      display: flex; justify-content: center;
+      padding: 2.5rem 5rem;
+    }
+    .stats-inner {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; width: 100%; max-width: 1200px;
+    }
+    .sbar-item {
+      padding: 0 2rem; border-right: 1px solid rgba(255,255,255,0.07);
+      text-align: center;
+    }
+    .sbar-item:first-child { padding-left: 0; }
+    .sbar-item:last-child { border-right: none; }
+    .sbar-n {
+      font-family: var(--font-head); font-size: 2.2rem;
+      font-weight: 700; color: var(--paper); line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .sbar-n span { color: var(--ember-dim); }
+    .sbar-l { font-size: 0.68rem; color: rgba(250,247,243,0.38); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ─── SECTION SHELL ─── */
+    .sw { padding: 5.5rem 5rem; display: flex; justify-content: center; }
+    .sw.dark { background: var(--ink); }
+    .sw.mid { background: var(--paper-mid); }
+    .sw-inner { width: 100%; max-width: 1200px; }
+
+    #contact { display: flex; flex-direction: column; align-items: center; }
+
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 0.67rem;
+      color: var(--ember); letter-spacing: 0.15em;
+      text-transform: uppercase; margin-bottom: 0.8rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .eyebrow::before { content:''; display:block; width:18px; height:1px; background:var(--ember); }
+    .sw.dark .eyebrow { color: var(--ember-dim); }
+    .sw.dark .eyebrow::before { background: var(--ember-dim); }
+
+    h2.sh {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 300; line-height: 1.15;
+      letter-spacing: -0.02em; color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    h2.sh em { font-style: italic; color: var(--ember); }
+    .sw.dark h2.sh { color: var(--paper); }
+    .sw.dark h2.sh em { color: var(--ember-dim); }
+
+    /* ─── ABOUT ─── */
+    .about-layout {
+      display: grid; grid-template-columns: 1.15fr 0.85fr;
+      gap: 5rem; margin-top: 3.5rem; align-items: start;
+    }
+
+    .about-prose p {
+      font-size: 0.96rem; line-height: 1.85;
+      color: var(--ink-soft); font-weight: 300;
+      margin-bottom: 1.1rem;
+    }
+    .about-prose p strong { color: var(--ink); font-weight: 600; }
+
+    /* Skills as clean text list — NOT buttons */
+    .skills-block { margin-top: 2.5rem; }
+    .skills-block h3 {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      color: var(--ink-muted); text-transform: uppercase;
+      letter-spacing: 0.12em; margin-bottom: 0.9rem;
+      padding-bottom: 0.6rem; border-bottom: 1px solid var(--border);
+    }
+    .skills-cols { display: grid; grid-template-columns: 1fr 1fr; }
+    .skills-cols li {
+      list-style: none; font-size: 0.86rem;
+      color: var(--ink-soft); font-weight: 400;
+      padding: 0.42rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .skills-cols li::before {
+      content: ''; width: 3px; height: 3px;
+      background: var(--ember); border-radius: 50%; flex-shrink: 0;
+    }
+
+    .about-cards { display: flex; flex-direction: column; gap: 1.25rem; }
+    .acard {
+      background: white; border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.4rem 1.6rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .acard:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(13,13,13,0.07); }
+    .acard-top {
+      display: flex; align-items: center; gap: 0.7rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem; border-bottom: 1px solid var(--border);
+    }
+    .acard-icon {
+      width: 34px; height: 34px;
+      background: rgba(201,79,26,0.07); border-radius: 8px;
+      display:flex; align-items:center; justify-content:center;
+      color: var(--ember); font-size: 0.85rem; flex-shrink:0;
+    }
+    .acard-label { font-size: 0.82rem; font-weight: 600; color: var(--ink); }
+    .acard ul { list-style:none; }
+    .acard li {
+      font-size: 0.82rem; color: var(--ink-soft);
+      padding: 0.38rem 0; border-bottom: 1px solid var(--border);
+      font-weight: 300; line-height: 1.4;
+    }
+    .acard li:last-child { border-bottom:none; }
+
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; gap: 1.4rem; }
+
+    .tl-company-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 0.7rem;
+    }
+    .tl-company-name {
+      font-size: 0.82rem; font-weight: 600; color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+    .tl-company-tenure {
+      font-family: var(--font-mono); font-size: 0.62rem;
+      color: var(--ink-muted); letter-spacing: 0.05em;
+    }
+    .tl-roles {
+      display: flex; flex-direction: column; gap: 0;
+      border-left: 1.5px solid var(--border);
+      margin-left: 0.3rem; padding-left: 1rem;
+    }
+    .tl-role {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      padding: 0.5rem 0; position: relative;
+    }
+    .tl-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--paper); border: 1.5px solid var(--ember);
+      flex-shrink: 0; margin-top: 0.22rem;
+      position: absolute; left: -1.35rem;
+    }
+    .tl-role-body { display: flex; flex-direction: column; gap: 0.15rem; }
+    .tl-role-title { font-size: 0.82rem; color: var(--ink-soft); font-weight: 400; }
+    .tl-role-date {
+      font-family: var(--font-mono); font-size: 0.62rem;
+      color: var(--ink-muted); letter-spacing: 0.04em;
+    }
+    .tl-company:not(:last-child) {
+      padding-bottom: 1.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ─── AI/ML ─── */
+    .ml-intro {
+      font-size: 0.95rem; color: rgba(250,247,243,0.5);
+      line-height: 1.8; max-width: 560px;
+      font-weight: 300; margin-bottom: 3rem;
+    }
+    .ml-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+    .mlcard {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; padding: 1.8rem;
+      transition: all 0.25s; position:relative; overflow:hidden;
+    }
+    .mlcard::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background: var(--ember); transform: scaleX(0); transform-origin:left;
+      transition: transform 0.3s;
+    }
+    .mlcard:hover { border-color: rgba(201,79,26,0.3); transform: translateY(-4px); }
+    .mlcard:hover::before { transform: scaleX(1); }
+    .mlcard-n {
+      font-family: var(--font-mono); font-size: 0.62rem;
+      color: rgba(250,247,243,0.28); letter-spacing: 0.15em;
+      margin-bottom: 1.1rem;
+    }
+    .mlcard h3 {
+      font-family: var(--font-head); font-size: 1.2rem;
+      font-weight: 300; color: var(--paper); margin-bottom: 0.7rem; line-height:1.3;
+    }
+    .mlcard p {
+      font-size: 0.83rem; color: rgba(250,247,243,0.42);
+      line-height: 1.7; margin-bottom: 1.4rem; font-weight:300;
+    }
+    .ml-tags { display:flex; flex-wrap:wrap; gap:0.35rem; }
+    .ml-tag {
+      font-family: var(--font-mono); font-size: 0.6rem;
+      color: rgba(250,247,243,0.32); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 3px; padding: 0.18rem 0.45rem;
+    }
+
+    /* ─── PROJECTS ─── */
+    .projects-sub {
+      font-size: 0.92rem; color: var(--ink-muted);
+      font-style: italic; margin-top: 0.5rem; margin-bottom: 3rem;
+      font-family: var(--font-head); font-weight: 300;
+    }
+
+    .proj-list { display:flex; flex-direction:column; gap:1.5rem; }
+
+    .pcard {
+      display: grid; grid-template-columns: 280px 1fr;
+      border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; background: white;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .pcard:hover { transform: translateY(-4px); box-shadow: 0 18px 52px rgba(13,13,13,0.09); }
+    .pcard:nth-child(even) { grid-template-columns: 1fr 280px; }
+    .pcard:nth-child(even) .pcard-img { order: 2; }
+    .pcard:nth-child(even) .pcard-body { order: 1; }
+
+    .pcard-img {
+      background: var(--ink);
+      display:flex; align-items:center; justify-content:center;
+      font-size: 2.8rem; min-height: 220px; position:relative; overflow:hidden;
+    }
+    .pcard-img-emoji { position:relative; z-index:1; }
+
+    .pcard-body {
+      padding: 2.2rem; display:flex; flex-direction:column; justify-content:center;
+    }
+    .pcard-type {
+      font-family: var(--font-mono); font-size: 0.63rem;
+      color: var(--ember); letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .pcard-title {
+      font-family: var(--font-head); font-size: 1.45rem;
+      font-weight: 300; color: var(--ink);
+      margin-bottom: 0.65rem; line-height:1.2; letter-spacing:-0.01em;
+    }
+    .pcard-desc {
+      font-size: 0.84rem; line-height: 1.75;
+      color: var(--ink-soft); font-weight:300; margin-bottom: 1.35rem;
+    }
+    .pcard-tech { display:flex; flex-wrap:wrap; gap:0.38rem; margin-bottom:1.5rem; }
+    .ptag {
+      font-family: var(--font-mono); font-size: 0.63rem;
+      color: var(--ink-muted); border: 1px solid var(--border);
+      border-radius: 3px; padding: 0.18rem 0.52rem; background: var(--paper);
+    }
+    .pcard-link {
+      display:inline-flex; align-items:center; gap:0.4rem;
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--ember); text-decoration:none;
+      transition: gap 0.2s;
+    }
+    .pcard-link:hover { gap: 0.65rem; }
+
+    .featured-badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      background: rgba(201,79,26,0.08); color: var(--ember);
+      font-size: 0.63rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.22rem 0.6rem;
+      border-radius: 100px; margin-bottom: 0.65rem;
+      border: 1px solid rgba(201,79,26,0.18);
+      width: fit-content;
+    }
+
+    /* ─── BLOG ─── */
+    .blog-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:1.25rem; margin-top:3rem; }
+    .bcard {
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 1.8rem; background: white;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .bcard:hover { transform: translateY(-4px); box-shadow: 0 14px 44px rgba(13,13,13,0.07); }
+    .bcard-meta {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom: 1rem;
+    }
+    .bcard-tag {
+      font-family: var(--font-mono); font-size: 0.6rem;
+      color: var(--ember); letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .bcard-date { font-size: 0.7rem; color: var(--ink-muted); }
+    .bcard h3 {
+      font-family: var(--font-head); font-size: 1.1rem;
+      font-weight: 300; color: var(--ink); line-height:1.35;
+      margin-bottom: 0.7rem; letter-spacing:-0.01em;
+    }
+    .bcard p {
+      font-size: 0.82rem; line-height: 1.7;
+      color: var(--ink-muted); font-weight: 300;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--ink); padding: 6rem 5rem;
+      text-align: center;
+    }
+    #contact .eyebrow { justify-content: center; }
+    #contact .eyebrow::before { display:none; }
+    #contact h2.sh { color: var(--paper); }
+    #contact h2.sh em { color: var(--ember-dim); }
+    .contact-sub {
+      font-size: 0.95rem; color: rgba(250,247,243,0.42);
+      max-width: 460px; margin: 0.75rem auto 2.5rem;
+      line-height: 1.8; font-weight: 300;
+    }
+    .contact-btns { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; }
+    .btn-light {
+      background: var(--paper); color: var(--ink);
+      padding: 0.85rem 2.2rem; border-radius: 4px;
+      font-weight: 600; font-size: 0.82rem;
+      text-decoration:none; letter-spacing:0.04em;
+      transition: all 0.2s; display:inline-block;
+    }
+    .btn-light:hover { background: var(--ember); color: white; transform: translateY(-2px); }
+    .btn-ghost-light {
+      border: 1px solid rgba(250,247,243,0.22);
+      color: var(--paper); padding: 0.85rem 2.2rem; border-radius: 4px;
+      font-weight: 600; font-size: 0.82rem;
+      text-decoration:none; letter-spacing:0.04em;
+      transition: all 0.2s; display:inline-block;
+    }
+    .btn-ghost-light:hover { border-color: var(--paper); transform: translateY(-2px); }
+
+    .footer-bar {
+      display:flex; justify-content:space-between; align-items:center;
+      max-width: 900px; margin: 3rem auto 0;
+      padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-copy { font-size: 0.74rem; color: rgba(250,247,243,0.22); }
+    .footer-links { display:flex; gap:1.5rem; }
+    .footer-links a {
+      font-size: 0.74rem; color: rgba(250,247,243,0.28);
+      text-decoration:none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--ember-dim); }
+
+    /* ─── CONTACT FORM ─── */
+    .contact-form {
+      width: 100%; max-width: 560px;
+      display: flex; flex-direction: column; gap: 0.85rem;
+      margin: 0 auto;
+    }
+    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    .cf-input {
+      background: rgba(250,247,243,0.06);
+      border: 1px solid rgba(250,247,243,0.14);
+      border-radius: 4px; padding: 0.85rem 1rem;
+      color: var(--paper); font-family: var(--font-body);
+      font-size: 0.88rem; width: 100%;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .cf-input::placeholder { color: rgba(250,247,243,0.32); }
+    .cf-input:focus { border-color: rgba(201,79,26,0.6); }
+    .cf-textarea { min-height: 130px; resize: vertical; }
+    .cf-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .cf-status {
+      font-size: 0.82rem; text-align: center;
+      min-height: 1.2rem;
+      color: rgba(250,247,243,0.5);
+    }
+    .cf-status.ok { color: #7ecb8f; }
+    .cf-status.err { color: #e07070; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display:none; }
+      .about-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .ml-grid { grid-template-columns: 1fr 1fr; }
+      .pcard, .pcard:nth-child(even) { grid-template-columns: 1fr; }
+      .pcard:nth-child(even) .pcard-img,
+      .pcard:nth-child(even) .pcard-body { order:unset; }
+      .stats-bar { padding: 2rem; }
+      .stats-inner { grid-template-columns: repeat(2,1fr); }
+      .blog-grid { grid-template-columns: 1fr; }
+      nav { padding: 0 2rem; }
+      .nav-inner { padding: 0 2rem; }
+    }
+    @media (max-width: 768px) {
+      nav ul { gap:1.2rem; }
+      .sw, #hero, #contact { padding-left:1.5rem; padding-right:1.5rem; }
+      .ml-grid { grid-template-columns: 1fr; }
+      .footer-bar { flex-direction:column; gap:1rem; }
+    }
+  </style>
 </head>
-
 <body>
-  <nav id="navbar" class="flex bg-white">
 
-    <div id="nav-icon" class="nav_icon__container">
-      <img id="icon" alt="icon" src="img/favicon.ico">
-    </div>
-
-    <ul id="nav-menu-links" class="nav_menu__container">
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Mia <i>Yuan</i></div>
+    <ul>
       <li><a href="#about">About</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#ml">AI / ML</a></li>
+      <li><a href="#portfolio">Projects</a></li>
+      <li><a href="#blog">Writing</a></li>
+      <li><a href="#contact" class="nav-pill">Say hello</a></li>
     </ul>
-  </nav>
+  </div>
+</nav>
 
-  <!-- About section with profile details -->
-  <section id="about" class="about bg-white">
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+    <div class="hero-kicker hero-enter kicker-draw">Technical Product Manager III · AI/ML · Mobile</div>
+    <h1 class="hero-title hero-enter d1">
+      Mia Yuan
+    </h1>
+    <p class="hero-tagline hero-enter d2">👋 Hello!<em></em></p>
+    <p class="hero-bio hero-enter d3">
+      I'm Mia, a <strong>Technical Product Manager</strong> and <strong>Georgia Tech CS grad student</strong> who enjoys problem solving by building products people love. 
+      My work spans mobile app, AI products, and ML infrastructure. I'm equally comfortable in a data notebook and a product roadmap. 
+    </p>
+    <div class="hero-actions hero-enter d4">
+      <a href="#portfolio" class="btn-solid">See my work</a>
+      <a href="https://github.com/miaYmia/portfolio/blob/main/resume.pdf" target="_blank" class="btn-line">Résumé</a>
+    </div>
+    <div class="hero-links hero-enter d5">
+      <span>Find me</span>
+      <a href="https://www.linkedin.com/in/mia-yuan/" target="_blank" class="icon-link" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+      <a href="https://github.com/miaYmia" target="_blank" class="icon-link" aria-label="GitHub">
+        <i class="fa-brands fa-github"></i>
+      </a>
+    </div>
+    </div><!-- end hero-text -->
 
-    <div class="about-container">
+    <div class="hero-visual">
+      <div class="hero-abstract sketch-enter">
+        <img src="sketch.png" alt="Mia Yuan portrait sketch" />
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-stat-box stat-pop d1">
+          <div class="n">$13<span>B</span></div>
+          <div class="l">Annual revenue enabled</div>
+        </div>
+        <div class="hero-stat-box stat-pop d2">
+          <div class="n">7<span>+</span></div>
+          <div class="l">Years in product</div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end hero-inner -->
+</section>
 
-      <!-- Adding the profile image -->
-      <img src="img/profile.jpg" alt="Profile picture of Mia Yuan" class="profile-pic"/>
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="sbar-item sbar-reveal"><div class="sbar-n" data-target="25" data-suffix="%">0%</div><div class="sbar-l">Watchlist Engagement Lift</div></div>
+    <div class="sbar-item sbar-reveal d1"><div class="sbar-n" data-target="10" data-prefix="+">0</div><div class="sbar-l">App CSAT Improvement</div></div>
+    <div class="sbar-item sbar-reveal d2"><div class="sbar-n" data-target="120" data-suffix="%">0%</div><div class="sbar-l">Key metric Boost</div></div>
+    <div class="sbar-item sbar-reveal d3"><div class="sbar-n" data-target="3" data-prefix="$" data-suffix="M">$0M</div><div class="sbar-l">Revenue Uplift from Experiments</div></div>
+  </div>
+</div>
 
-      <h1>Hi, I'm Mia Yuan! Welcome to my webpage! </h1>
-      <!-- Introduction and bio -->
-      <p>
-        I'm a product manager at <a href="https://www.vanguard.com/" target="_blank">Vanguard</a>
-         I enjoy exploring new technologies, building machine learning projects, and I am passionate about using data and technology to drive business impact. 
-         I'm currently pursuing my Master of Computer and Information Technology at  <a href="https://www.upenn.edu/" target="_blank"> 
-         University of Pennsylvania</a>.
-        <br />
-        <br />
-        I love meeting new people, let's connect!
-      </p>
-
-      <!-- Social media links and Resume button -->
-      <div class="socials__container">
-        <!-- <h6>LET'S CONNECT</h6> -->
-        <ul class="icons_social__container flex">
-
-          <li class="social_link"><a aria-label="Linkedin" target="_blank" href="https://www.linkedin.com/in/mia-yuan/"><i class="fa-brands fa-linkedin-in"></i></a></li>
-
-          <li class="social_link"><a aria-label="Github" target="_blank" href="https://github.com/miaYmia"><i class="fa-brands fa-github"></i></a></li>
-          
-          <a href="https://github.com/miaYmia/portfolio/blob/main/resume.pdf" target="_blank">
-            <button class="btn-primary btn-outlined">Resume</button>
-          </a>
-
+<!-- ABOUT -->
+<section class="sw" id="about">
+  <div class="sw-inner">
+  <div class="eyebrow r">About</div>
+  <h2 class="sh r">The person behind<br>the <em>platform.</em></h2>
+  <div class="about-layout">
+    <div class="about-prose r">
+      <p>I'm a <strong>Technical Product Manager</strong> with 7+ years shipping products that people actually use. I started as a PM analyst, grew into leading mobile app strategy, and scaled a mobile product to <strong>3M+ daily active users and $1B in revenue</strong> at Cigna.</p>
+      <p>More recently, I pivoted into AI and ML infrastructure. I spent time owning an end-to-end AI decision intelligence platform, and I'm now moving into platform PM work</strong>, building the feature store and ML infrastructure that powers models at scale. It's a different kind of problem: less about user-facing polish, more about reliability and developer experience.</p>
+      <p>I'm also in my <strong>Georgia Tech MSCS</strong>, going deeper on algorithms and systems.</p>
+      <p>I think the best PMs are technically savvy, honest with data, and deeply care about the people using what they build.</p>
+      <div class="skills-block">
+        <h3>Skills & Tools</h3>
+        <ul class="skills-cols">
+          <li>Product Management</li>
+          <li>LangGraph / LangChain</li>
+          <li>Machine Learning</li>
+          <li>AWS Bedrock</li>
+          <li>Data Analytics & A/B Testing</li>
+          <li>Python · Pandas · Scikit-Learn</li>
+          <li>Adobe Analytics</li>
+          <li>SQL · Java · JavaScript</li>
         </ul>
       </div>
     </div>
-
-    <!-- Skills, Models, and Languages lists -->
-    <div class="stack-container">
-
-      <div class="row">
-        <div class="column">
-          <h2>Education</h2>
-          <ul class="about-coding_langs">
-            <li>Master of Science - Master of Computer and Information Technology, University of Pennsylvania</li>
-            <li>Bachelor of Arts - Global Leadership, Arizona State University</li>
-          </ul>
+    <div class="about-cards r d2">
+      <div class="acard">
+        <div class="acard-top">
+          <div class="acard-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="acard-label">Education</div>
+        </div>
+        <ul>
+          <li>M.S. Computer Science, Georgia Institute of Technology</li>
+          <li>B.A. Business, University of Arizona</li>
+        </ul>
+      </div>
+      <div class="acard">
+        <div class="acard-top">
+          <div class="acard-icon"><i class="fa-solid fa-briefcase"></i></div>
+          <div class="acard-label">Experience</div>
+        </div>
+        <div class="timeline">
+          <div class="tl-company">
+            <div class="tl-company-header">
+              <span class="tl-company-name">Vanguard</span>
+              <span class="tl-company-tenure">2023 to Present</span>
+            </div>
+            <div class="tl-roles">
+              <div class="tl-role">
+                <div class="tl-dot"></div>
+                <div class="tl-role-body">
+                  <div class="tl-role-title">TPM III, AI/ML Platform</div>
+                  <div class="tl-role-date">Oct 2025 to Present</div>
+                </div>
+              </div>
+              <div class="tl-role">
+                <div class="tl-dot"></div>
+                <div class="tl-role-body">
+                  <div class="tl-role-title">PM III, Mobile App</div>
+                  <div class="tl-role-date">May 2023 to Oct 2025</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tl-company">
+            <div class="tl-company-header">
+              <span class="tl-company-name">Cigna</span>
+              <span class="tl-company-tenure">2018 to 2023</span>
+            </div>
+            <div class="tl-roles">
+              <div class="tl-role">
+                <div class="tl-dot"></div>
+                <div class="tl-role-body">
+                  <div class="tl-role-title">Product Manager, Mobile App</div>
+                  <div class="tl-role-date">Oct 2020 to May 2023</div>
+                </div>
+              </div>
+              <div class="tl-role">
+                <div class="tl-dot"></div>
+                <div class="tl-role-body">
+                  <div class="tl-role-title">Product Management Analyst</div>
+                  <div class="tl-role-date">Dec 2018 to Oct 2020</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="column">
-          <h2>Skills</h2>
-          <ul class="about-coding_langs">
-            <li>Product Management</li>
-            <li>Machine Learning</li>
-            <li>Data Analytics</li>
-            <li>Java</li>
-            <li>Python</li>
-            <li>SQL</li>
-            <li>JavaScript</li>
-            
-          </ul>
+      <div class="acard">
+        <div class="acard-top">
+          <div class="acard-icon"><i class="fa-solid fa-certificate"></i></div>
+          <div class="acard-label">Certifications</div>
         </div>
-
-        <div class="column">
-          <h2>Machine Learning</h2>
-          <!-- Models list -->
-          <ul class="about-coding_langs">
-            <li>Exploratory Data Analysis</li>
-            <li>Statistical Analysis</li>
-            <li>Date Visualizations</li>
-            <li>Data Pre-processing</li> 
-            <li>Supervised Machine Learning Models</li>
-            <li>Performance Metrics</li>
-          </ul>
-        </div>
-
-        <div class="column">
-          <h2>Experience</h2>
-          <ul class="about-coding_langs">
-            <li>Product Manager - Vanguard, May 2023 to Present</li>
-            <li>Product Manager - Cigna, Apr 2021 to May 2023</li>
-            <li>Product Analyst - Cigna, Aug 2018 to Apr 2021</li>
-            <li>Python & Java Teacher - LaunchCode, 2020</li>
-          </ul>
-        </div>
-
+        <ul>
+          <li>AWS Certified AI Practitioner</li>
+          <li>AWS Certified Cloud Practitioner</li>
+          <li>Google Cloud Digital Leader</li>
+        </ul>
       </div>
     </div>
+  </div>
+  </div>
+</section>
 
-  </section>
+<!-- AI / ML -->
+<section class="sw dark" id="ml">
+  <div class="sw-inner">
+  <div class="eyebrow r">AI & Machine Learning</div>
+  <h2 class="sh r">Where models meet<br><em>decisions.</em></h2>
+  <p class="ml-intro r">ML is only as valuable as the product decisions it informs. I build and ship both sides: the models and the products that put them to work.</p>
+  <div class="ml-grid">
+<div class="mlcard mlcard-reveal r d1">
+  <div class="mlcard-n">01 / Side projects</div>
+  <h3><a href="https://github.com/miaYmia/langgraph-chatbot" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(201,79,26,0.35);padding-bottom:1px;">Multi-Agent AI Systems</a></h3>
+  <p>Built a LangGraph multi-agent chatbot with AWS Bedrock (Claude Sonnet 4) that answers natural language questions about investment portfolios. Holdings, ETF look-through exposure, performance vs benchmarks, all via natural conversation.</p>
+  <div class="ml-tags"><span class="ml-tag">LangGraph</span><span class="ml-tag">AWS Bedrock</span><span class="ml-tag">Multi-agent</span><span class="ml-tag">LangSmith</span><span class="ml-tag">SQLite</span></div>
+</div>
+<div class="mlcard mlcard-reveal r d2">
+  <div class="mlcard-n">02 / At work</div>
+  <h3>ML Infrastructure and Platform PM</h3>
+  <p>Currently building the feature store and ML platform infrastructure that helps data scientists move faster and ship more reliably. Previously owned an AI decision intelligence platform that processed sales engagement signals for advisor and leadership workflows.</p>
+  <div class="ml-tags"><span class="ml-tag">Feature Store</span><span class="ml-tag">ML Platform</span><span class="ml-tag">Data Pipelines</span><span class="ml-tag">AWS</span></div>
+</div>
+<div class="mlcard mlcard-reveal r d3">
+  <div class="mlcard-n">03 / Foundations</div>
+  <h3>Classical ML & Predictive Modeling</h3>
+  <p>End-to-end ML pipelines covering EDA, feature engineering, model selection, and evaluation, applied to house price forecasting, survival prediction, and trading signal analysis.</p>
+  <div class="ml-tags"><span class="ml-tag">Scikit-Learn</span><span class="ml-tag">Pandas</span><span class="ml-tag">Random Forest</span><span class="ml-tag">Logistic Reg.</span></div>
+</div>
+</section>
 
-  <!-- Portfolio section -->
-  <section id="portfolio" class="projects"></section>
+<!-- PROJECTS -->
+<section class="sw mid" id="portfolio">
+  <div class="sw-inner">
+  <div class="eyebrow r">Personal Projects</div>
+  <h2 class="sh r">Some things I've<br><em>built.</em></h2>
+  <p class="projects-sub r">A selection of side projects, built out of curiosity, outside of work.</p>
+  <div class="proj-list" id="proj-container"></div>
+  </div>
+</section>
 
-  <!-- Footer with GitHub link and dummy text -->
-  <footer class="flex bg-white">
-
-    <a href="https://miaymia.github.io/portfolio/" target="_blank" class="title-text">GitHub</a>
-
-    <a href="https://github.com/miaYmia/portfolio/blob/main/LICENSE.txt" target="_blank" class="title-text">Terms & License</a>
-
-    <div class="footer__container">
-      <p class="dummy-text">© 2024 Mia Yuan</p>
+<!-- BLOG -->
+<section class="sw" id="blog">
+  <div class="sw-inner">
+  <div class="eyebrow r">Writing</div>
+  <h2 class="sh r">Thinking out <em>loud.</em></h2>
+  <div class="blog-grid">
+    <div class="bcard bcard-fan r d1">
+      <div class="bcard-meta"><span class="bcard-tag">Product</span><span class="bcard-date">Coming soon</span></div>
+      <h3>Why Every PM Should Learn to Code (At Least a Little)</h3>
+      <p>You don't need to be a 10x engineer. But understanding what's hard, what's easy, and what's impossible changes every conversation with your team.</p>
     </div>
+    <div class="bcard bcard-fan r d2">
+      <div class="bcard-meta"><span class="bcard-tag">ML & Finance</span><span class="bcard-date">Coming soon</span></div>
+      <h3>Moving Averages and Money: Signal vs. Noise in Trading Algorithms</h3>
+      <p>Building a trading simulator was an exercise in humility, and a crash course in how much noise exists in data we assume is meaningful.</p>
+    </div>
+    <div class="bcard bcard-fan r d3">
+      <div class="bcard-meta"><span class="bcard-tag">Growth</span><span class="bcard-date">Coming soon</span></div>
+      <h3>The 120% Enrollment Increase: What We Learned From Experimentation at Scale</h3>
+      <p>How introducing data-driven experiments at Cigna changed how we thought about product decisions, and why most A/B tests are set up to fail.</p>
+    </div>
+  </div>
+  </div>
+</section>
 
-  </footer>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="eyebrow r">Get in touch</div>
+  <h2 class="sh r">Let's make something<br><em>worth building.</em></h2>
+  <p class="contact-sub r">Whether you're hiring, collaborating, or just want to talk product, ML, or multi-agent systems, I'd love to hear from you.</p>
 
+  <form class="contact-form r" id="contactForm">
+    <div class="cf-row">
+      <input class="cf-input" type="text" name="name" placeholder="Your name" required />
+      <input class="cf-input" type="email" name="email" placeholder="Your email" required />
+    </div>
+    <textarea class="cf-input cf-textarea" name="message" placeholder="What's on your mind?" required></textarea>
+    <div class="cf-actions">
+      <button type="submit" class="btn-light" id="cfSubmit">Send message</button>
+      <a href="https://www.linkedin.com/in/mia-yuan/" target="_blank" class="btn-ghost-light">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;margin-right:0.45rem;vertical-align:-2px"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+  LinkedIn
+      </a>
+    </div>
+    <p class="cf-status" id="cfStatus"></p>
+  </form>
+
+  <div class="footer-bar">
+    <span class="footer-copy">© 2025 Mia Yuan</span>
+    <div class="footer-links">
+      <a href="https://github.com/miaYmia" target="_blank">GitHub</a>
+      <a href="https://miaymia.github.io/portfolio/" target="_blank">Live site</a>
+      <a href="https://github.com/miaYmia/portfolio/blob/main/LICENSE.txt" target="_blank">License</a>
+    </div>
+  </div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const projects = [
+  {
+    featured: true,
+    emoji: '🤖',
+    type: 'AI · Multi-agent · Python',
+    title: 'LangGraph Portfolio Analyst Chatbot',
+    desc: 'Multi-agent AI chatbot that answers natural language questions about an investment portfolio. Ask about holdings, ETF look-through exposure, performance vs the S&P 500, or risk concentration. Built with LangGraph\'s supervisor + worker pattern, AWS Bedrock (Claude Sonnet 4), SQLite conversation memory, and live Yahoo Finance data.',
+    tech: ['LangGraph', 'AWS Bedrock', 'Claude Sonnet 4', 'LangSmith', 'SQLite', 'yfinance', 'pytest'],
+    link: 'https://github.com/miaYmia/langgraph-chatbot',
+  },
+  {
+    emoji: '📈',
+    type: 'Python · Finance · ML',
+    title: 'Trading Strategy Simulator',
+    desc: 'Interactive simulator that visualizes buy/sell signals using moving average crossover logic on real-time stock data. A fun project at the intersection of data science, finance, and product thinking.',
+    tech: ['Streamlit', 'Plotly', 'SQLite', 'Alpha Vantage API', 'Pandas'],
+    link: 'https://github.com/miaYmia/trading-strategy-simulator',
+  },
+  {
+    emoji: '🚢',
+    type: 'Machine Learning',
+    title: 'Titanic Survival Prediction',
+    desc: 'End-to-end ML pipeline predicting passenger survival from age, class, and family data. Full EDA, preprocessing, logistic regression and decision tree models with evaluation metrics.',
+    tech: ['EDA', 'Logistic Regression', 'Decision Tree', 'Data Visualization', 'Scikit-Learn'],
+    link: 'https://github.com/miaYmia/ML_Projects/blob/main/titanic-survivor-prediction/titanic_project.ipynb',
+  },
+  {
+    emoji: '🏠',
+    type: 'Machine Learning',
+    title: 'House Price Forecast',
+    desc: 'Predicting property values from square footage, bedrooms, and location. Random Forest hit an R² of 0.87, with grade and location surfacing as the dominant predictors.',
+    tech: ['Random Forest', 'Feature Engineering', 'Scikit-Learn', 'Pandas', 'EDA'],
+    link: 'https://github.com/miaYmia/ML_Projects/blob/main/house-price-prediction/House_Price_Prediction.ipynb',
+  },
+];
+
+// Inject project cards with alternating slide directions
+const container = document.getElementById('proj-container');
+projects.forEach((p, i) => {
+  const slideClass = i % 2 === 0 ? 'pcard-left' : 'pcard-right';
+  const delay = i === 0 ? '' : `d${Math.min(i, 4)}`;
+  container.insertAdjacentHTML('beforeend', `
+    <div class="pcard${p.featured ? ' featured' : ''} ${slideClass} ${delay}">
+      <div class="pcard-img"><div class="pcard-img-emoji">${p.emoji}</div></div>
+      <div class="pcard-body">
+        ${p.featured ? '<div class="featured-badge"><i class="fa-solid fa-star" style="font-size:0.5rem"></i> Featured project</div>' : ''}
+        <div class="pcard-type">${p.type}</div>
+        <h3 class="pcard-title">${p.title}</h3>
+        <p class="pcard-desc">${p.desc}</p>
+        <div class="pcard-tech">${p.tech.map(t => `<span class="ptag">${t}</span>`).join('')}</div>
+        <a href="${p.link}" target="_blank" class="pcard-link">View project <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  `);
+});
+
+// Count-up animation for stat numbers
+function countUp(el) {
+  const target = parseInt(el.dataset.target);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const duration = 1200;
+  const step = 16;
+  const increment = target / (duration / step);
+  let current = 0;
+  const timer = setInterval(() => {
+    current = Math.min(current + increment, target);
+    el.innerHTML = `${prefix}${Math.round(current)}<span>${suffix}</span>`;
+    if (current >= target) clearInterval(timer);
+  }, step);
+}
+
+// Intersection observer for all reveal classes
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    el.classList.add('on');
+    // Trigger count-up for stat numbers when stats bar enters view
+    if (el.classList.contains('sbar-reveal')) {
+      const num = el.querySelector('[data-target]');
+      if (num) setTimeout(() => countUp(num), parseFloat(getComputedStyle(el).transitionDelay) * 1000 + 200);
+    }
+    obs.unobserve(el);
+  });
+}, { threshold: 0.15 });
+
+// Observe all animated elements
+document.querySelectorAll('.r, .sbar-reveal, .mlcard-reveal, .pcard-left, .pcard-right, .bcard-fan').forEach(el => obs.observe(el));
+
+// Eyebrow line draw on scroll
+const eyeObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('eyebrow-draw', 'on'); eyeObs.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+// Contact form — Formspree
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('cfSubmit');
+  const status = document.getElementById('cfStatus');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  try {
+    const res = await fetch('https://formspree.io/f/mdawvzaj', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(this)
+    });
+    if (res.ok) {
+      status.textContent = '✓ Message sent — I\'ll be in touch!';
+      status.className = 'cf-status ok';
+      this.reset();
+    } else {
+      throw new Error();
+    }
+  } catch {
+    status.textContent = 'Something went wrong — try LinkedIn instead.';
+    status.className = 'cf-status err';
+  }
+  btn.textContent = 'Send message';
+  btn.disabled = false;
+});
+</script>
 </body>
 </html>
