@@ -177,6 +177,47 @@
     }
     .bcard-fan.on { opacity:1; transform: translateY(0) rotate(0deg); }
 
+    /* Blog homepage layout */
+    .blog-home-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 0;
+    }
+    .blog-home-header .sh { margin-bottom: 0; }
+    .see-all-link {
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--ember); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      transition: gap 0.2s;
+      white-space: nowrap;
+    }
+    .see-all-link:hover { gap: 0.65rem; }
+    .blog-grid-home { grid-template-columns: 1fr 1fr; }
+
+    .bcard-see-more {
+      display: flex; align-items: center; justify-content: center;
+      background: var(--paper-mid);
+      border-style: dashed;
+      text-decoration: none;
+      min-height: 220px;
+    }
+    .bcard-see-more:hover { transform: translateY(-4px); box-shadow: 0 14px 44px rgba(13,13,13,0.07); }
+    .bcard-more-inner { text-align: center; }
+    .bcard-more-count {
+      font-family: var(--font-head); font-size: 3rem;
+      font-weight: 700; color: var(--ink); line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .bcard-more-label {
+      font-size: 0.84rem; color: var(--ink-muted);
+      line-height: 1.5; font-weight: 300;
+    }
+    .bcard-see-more .bcard-read-link { justify-content: center; }
+
+    @media (max-width: 768px) {
+      .blog-grid-home { grid-template-columns: 1fr; }
+      .blog-home-header { flex-direction: column; gap: 0.5rem; }
+    }
+
     /* Featured blog card */
     .bcard-featured {
       display: block;
@@ -735,7 +776,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#ml">AI / ML</a></li>
       <li><a href="#portfolio">Projects</a></li>
-      <li><a href="#blog">Writing</a></li>
+      <li><a href="blog.html">Writing</a></li>
       <li><a href="#contact" class="nav-pill">Say hello</a></li>
     </ul>
   </div>
@@ -942,8 +983,11 @@
 <section class="sw" id="blog">
   <div class="sw-inner">
   <div class="eyebrow r">Writing</div>
-  <h2 class="sh r">Thinking out <em>loud.</em></h2>
-  <div class="blog-grid">
+  <div class="blog-home-header r">
+    <h2 class="sh">Thinking out <em>loud.</em></h2>
+    <a href="blog.html" class="see-all-link">See all writing <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+  <div class="blog-grid blog-grid-home">
     <a href="https://miaymia.medium.com/i-built-an-ai-chatbot-it-worked-then-came-the-hard-part-5ae66a579001" target="_blank" class="bcard bcard-fan bcard-featured r d1">
       <div class="bcard-meta"><span class="bcard-tag">AI · Engineering</span><span class="bcard-date">Apr 2025</span></div>
       <div class="bcard-live-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.55rem"></i> Published on Medium</div>
@@ -951,16 +995,13 @@
       <p>I built a multi-agent AI chatbot and told it to be helpful. It told me it couldn't access real-time market data — then, in the same conversation, offered to pull up real-time market data for me. Building from scratch to understand how these systems actually behave.</p>
       <div class="bcard-read-link">Read the post <i class="fa-solid fa-arrow-right"></i></div>
     </a>
-    <div class="bcard bcard-fan r d2">
-      <div class="bcard-meta"><span class="bcard-tag">Product</span><span class="bcard-date">Coming soon</span></div>
-      <h3>Why Every PM Should Learn to Code (At Least a Little)</h3>
-      <p>You don't need to be a 10x engineer. But understanding what's hard, what's easy, and what's impossible changes every conversation with your team.</p>
-    </div>
-    <div class="bcard bcard-fan r d3">
-      <div class="bcard-meta"><span class="bcard-tag">Growth</span><span class="bcard-date">Coming soon</span></div>
-      <h3>The 120% Enrollment Increase: What We Learned From Experimentation at Scale</h3>
-      <p>How introducing data-driven experiments at Cigna changed how we thought about product decisions, and why most A/B tests are set up to fail.</p>
-    </div>
+    <a href="blog.html" class="bcard bcard-fan bcard-see-more r d2">
+      <div class="bcard-more-inner">
+        <div class="bcard-more-count">3+</div>
+        <div class="bcard-more-label">More posts on product,<br>growth & engineering</div>
+        <div class="bcard-read-link" style="margin-top:1.5rem">Browse all <i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+    </a>
   </div>
   </div>
 </section>
