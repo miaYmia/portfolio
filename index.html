@@ -177,6 +177,37 @@
     }
     .bcard-fan.on { opacity:1; transform: translateY(0) rotate(0deg); }
 
+    /* Featured blog card */
+    .bcard-featured {
+      display: block;
+      text-decoration: none;
+      border-color: rgba(201,79,26,0.2);
+      background: linear-gradient(135deg, #fff 80%, rgba(201,79,26,0.04));
+      position: relative;
+    }
+    .bcard-featured::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--ember); border-radius: 10px 10px 0 0;
+    }
+    .bcard-live-badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: rgba(201,79,26,0.08); color: var(--ember);
+      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.2rem 0.55rem;
+      border-radius: 100px; margin-bottom: 0.75rem;
+      border: 1px solid rgba(201,79,26,0.18);
+      width: fit-content;
+    }
+    .bcard-read-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--ember); text-decoration: none;
+      margin-top: 1rem;
+      transition: gap 0.2s;
+    }
+    .bcard-read-link:hover { gap: 0.65rem; }
+
     /* 12. Nav link underline sweep */
     nav a:not(.nav-pill) {
       position: relative;
@@ -913,15 +944,17 @@
   <div class="eyebrow r">Writing</div>
   <h2 class="sh r">Thinking out <em>loud.</em></h2>
   <div class="blog-grid">
-    <div class="bcard bcard-fan r d1">
+    <a href="https://miaymia.medium.com/i-built-an-ai-chatbot-it-worked-then-came-the-hard-part-5ae66a579001" target="_blank" class="bcard bcard-fan bcard-featured r d1">
+      <div class="bcard-meta"><span class="bcard-tag">AI · Engineering</span><span class="bcard-date">Apr 2025</span></div>
+      <div class="bcard-live-badge"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.55rem"></i> Published on Medium</div>
+      <h3>I Built an AI Chatbot. It Worked. Then Came the Hard Part.</h3>
+      <p>I built a multi-agent AI chatbot and told it to be helpful. It told me it couldn't access real-time market data — then, in the same conversation, offered to pull up real-time market data for me. Building from scratch to understand how these systems actually behave.</p>
+      <div class="bcard-read-link">Read the post <i class="fa-solid fa-arrow-right"></i></div>
+    </a>
+    <div class="bcard bcard-fan r d2">
       <div class="bcard-meta"><span class="bcard-tag">Product</span><span class="bcard-date">Coming soon</span></div>
       <h3>Why Every PM Should Learn to Code (At Least a Little)</h3>
       <p>You don't need to be a 10x engineer. But understanding what's hard, what's easy, and what's impossible changes every conversation with your team.</p>
-    </div>
-    <div class="bcard bcard-fan r d2">
-      <div class="bcard-meta"><span class="bcard-tag">ML & Finance</span><span class="bcard-date">Coming soon</span></div>
-      <h3>Moving Averages and Money: Signal vs. Noise in Trading Algorithms</h3>
-      <p>Building a trading simulator was an exercise in humility, and a crash course in how much noise exists in data we assume is meaningful.</p>
     </div>
     <div class="bcard bcard-fan r d3">
       <div class="bcard-meta"><span class="bcard-tag">Growth</span><span class="bcard-date">Coming soon</span></div>
